@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+	<title>Welcome Home</title>
+{% endblock %}
+
+{% block home-marquee %}
+
+<div class="col-md-12" id="title-div">
+	<ol class="breadcrumb">
+	{% for b in bread %}
+	  <li><a href="#">{{b}}</a></li>
+	{% endfor %}
+	</ol>
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	  {% for dir in all_dirs %}
+	  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{dir}}" aria-expanded="true" aria-controls="{{dir}}" class="dir-link">
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingOne">
+	      <h4 class="panel-title" onclick='listdir("{{current_directory}}","{{dir}}")'>
+	          <i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;{{dir}}
+	      </h4>
+	    </div>
+		</a>
+    	<div id="{{dir}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+    		<ul>
+    			<li>
+    				<div class="panel-body" id="directory-div-{{dir}}"></div>
+    			</li>
+    		</ul>
+    	</div>
+	  </div>
+	  {% endfor %}
+	</div>
+    
+</div>
+<div class="col-md-12" id="res-div">
+	
+</div>
+	<div class="col-md-12" id="time-div">
+	</div>
+</div>
+{% endblock %}
+
+{% block js-required %}
+<script src="{% get_static_prefix %}js/app.js"></script>
+{% endblock %}
+
+{% block css-required %}
+<style type="text/css">
+</style>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block title %}
+        {% endblock %}
+
+
+        <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/bootstrap.min.css">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+        {% block css-required %}
+        {% endblock %}
+
+        <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/style.css?v=0.2">
+    </head>
+    
+    <!-- Main Body -->
+    <body  id="page-top" class="index">
+        <div style="min-height:10px;"></div>
+        <!-- Top Nav -->
+        <div class="container">
+            <div class="row" style="min-height:400px">
+                <div class="row">
+                    <div class="col-md-2" id="">
+                        <h2>Docshare</h2>
+                    </div>
+                    <div class="col-md-8 search-bar-parent">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <button onclick="listOptions()" class="dropbtn">NEW</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="#" id="create_folder" name="createFolder" onclick="create_folder()">Create Folder</a>
+                                <a href="#" onclick="upload_file()">File Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        {% block home-marquee %}
+                            <!-- <h2> HOME-MARQUEE </h2> -->
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Footer -->
+    </body>
+
+    {% block url-required %}
+    <script>
+        var CREATE_FOLDER = '{% url "createFolder" %}';
+        var LISTDIR = '{%url "listDir" %}';
+        var DOWNLOAD = '{%url "downloadFile" %}';
+    </script>
+    {% endblock %}
+
+    <script type="text/javascript" language="javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{% get_static_prefix %}js/bootstrap.min.js"></script>
+    
+
+    {% block js-required %}
+    {% endblock %}
+    
+</html>
