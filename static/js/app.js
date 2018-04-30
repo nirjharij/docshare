@@ -23,9 +23,13 @@ function listdir(current_directory,folder_name){
     
     // beforeSend: function(){$(".loader").show()},
     success: function(res) {
+      console.log(res.data.directories)
       data = "<ul class='list-group'>"
-      for (var i = 0; i < res.data.length; ++i) {  
-        data = data + '<a target="_blank" href="#" class="list-group-item">' + res.data[i] + "</a>";
+      for (var i = 0; i < res.data.directories.length; ++i) {  
+        data = data + '<a href="#" class="list-group-item">' + '<i class="glyphicon glyphicon-folder-open"></i>' +' &nbsp;&nbsp;&nbsp; ' + res.data.directories[i] + "</a>";
+      }
+      for (var i = 0; i < res.data.files.length; ++i) {
+        data = data + '<a href="#" class="list-group-item">' + res.data.files[i] + "</a>";
       }
       data = data + '</ul>';
       $('#directory-div-'+folder_name).html(data);

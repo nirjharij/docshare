@@ -98,11 +98,11 @@ class FileManagement:
         if os.path.isfile(old_filename):
             os.rename(old_filename,new_filename)    
 
-    @cd_base
-    def is_directory(current_directory,name):
-    	self.cd(current_directory)
-    	filepath = os.path.join(current_directory,name)
-    	if os.path.isdir(filepath):
+    # @cd_base
+    def is_directory(self,current_directory,name):
+    	# self.cd(current_directory)
+    	print ('os.getcwd()', current_directory, name)
+    	if os.path.isdir(os.path.join(current_directory, name)):
     		return True
     	else:
     		return False

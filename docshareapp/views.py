@@ -27,11 +27,22 @@ def create_folder(request):
         return JsonResponse({'data': 'Folder Created Successfully'}, content_type="application/json")
 
 def list_directory(request):
+    data = {}
     folder_name = request.GET.get('folder_name')
     current_directory = request.GET.get('current_directory')
+    # print(folder_name, current_directory, os.path.join(current_directory, folder_name), '<<<<<<<<<<<<<<<<')
     fileObj = FileManagement(path)
     list_of_files = fileObj.ls(os.path.join(current_directory,folder_name))
-    return JsonResponse({'data': list_of_files}, content_type="application/json")
+    directory_list = []
+    file_list = []
+    for file in list_of_files:
+        if fileObj.is_directory(os.path.join(current_directory, folder_name),file):
+            directory_list.append(file)
+        else:
+            file_list.append(file)
+    data['directories'] = directory_list
+    data['files'] = file_list
+    return JsonResponse({'data': data}, content_type="application/json")
 
 def download(request):
     folder_name = request.GET.get('folder_name')
