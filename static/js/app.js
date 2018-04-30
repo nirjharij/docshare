@@ -23,11 +23,12 @@ function listdir(current_directory,folder_name){
     
     // beforeSend: function(){$(".loader").show()},
     success: function(res) {
-      console.log(res)
+      data = "<ul class='list-group'>"
       for (var i = 0; i < res.data.length; ++i) {  
-        console.log(res.data[i])
-        $('#directory-div-'+folder_name).text(res.data[i]);                             
+        data = data + '<a target="_blank" href="#" class="list-group-item">' + res.data[i] + "</a>";
       }
+      data = data + '</ul>';
+      $('#directory-div-'+folder_name).html(data);
     },
     error: function(res){
       console.log(res);

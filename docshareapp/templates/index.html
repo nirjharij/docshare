@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block home-marquee %}
-
 <div class="col-md-12" id="title-div">
 	<ol class="breadcrumb">
 	{% for b in bread %}
@@ -24,11 +23,7 @@
 	    </div>
 		</a>
     	<div id="{{dir}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-    		<ul>
-    			<li>
-    				<div class="panel-body" id="directory-div-{{dir}}"></div>
-    			</li>
-    		</ul>
+			<div class="panel-body" id="directory-div-{{dir}}"></div>
     	</div>
 	  </div>
 	  {% endfor %}
