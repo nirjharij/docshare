@@ -23,6 +23,10 @@ td, th {
 	text-align: left;
 }
 
+.folder {
+	padding-left: 40px;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #874d80;

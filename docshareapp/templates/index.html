@@ -6,30 +6,29 @@
 {% endblock %}
 
 {% block home-marquee %}
-<div class="col-md-12" id="title-div">
-	<ol class="breadcrumb">
-	{% for b in bread %}
-	  <li><a href="#">{{b}}</a></li>
-	{% endfor %}
-	</ol>
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-	  {% for dir in all_dirs %}
-	  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{dir}}" aria-expanded="true" aria-controls="{{dir}}" class="dir-link">
-	  <div class="panel panel-default">
-	    <div class="panel-heading" role="tab" id="headingOne">
-	      <h4 class="panel-title" onclick='listdir("{{current_directory}}","{{dir}}")'>
-	          <i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;{{dir}}
-	      </h4>
-	    </div>
-		</a>
-    	<div id="{{dir}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-			<div class="panel-body" id="directory-div-{{dir}}"></div>
-    	</div>
-	  </div>
-	  {% endfor %}
-	</div>
-    
+<div class=col-md-2></div>
+<div class="col-md-10" id="title-div">
+    <ol class="breadcrumb">
+        {% for b, b1 in bread %}
+        <li class="active"><a href="{% url 'home' %}?path={{b1}}">{{b}}</a></li>
+        {% endfor %}
+    </ol>
 </div>
+<div class="col-md-10" id="folder-div">
+	<div class="col-md-12 list-group folder" id="folder">
+		{% for directory in directories %}
+	  	<a href="{% url 'home' %}?path={{ current_directory }}/{{ directory }}" id={{directory}} class="dir-link list-group-item">
+	    	<i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;{{directory}}
+		</a>
+	  	{% endfor %}
+	  	{% for file in files %}
+	  	<a href="{% url 'downloadFile' %}?path={{ current_directory }}/{{ file }}" id={{file}} class="dir-link list-group-item">
+	    	<i class="glyphicon glyphicon-cloud-download"></i> &nbsp;&nbsp;&nbsp;{{file}}
+		</a>
+	  	{% endfor %}
+	</div>
+</div>
+<input type="hidden" value='{{current_directory}}' id="directory">
 <div class="col-md-12" id="res-div">
 	
 </div>
@@ -39,7 +38,7 @@
 {% endblock %}
 
 {% block js-required %}
-<script src="{% get_static_prefix %}js/app.js"></script>
+<script src="{% get_static_prefix %}js/app.js"> </script>
 {% endblock %}
 
 {% block css-required %}

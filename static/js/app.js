@@ -20,10 +20,11 @@ function listdir(current_directory,folder_name){
     url: LISTDIR,
     data: {'folder_name':folder_name,'current_directory':current_directory},
     dataType: "json",
-    
-    // beforeSend: function(){$(".loader").show()},
+
     success: function(res) {
-      console.log(res.data.directories)
+      console.log(res)
+      $("#"+folder_name).click(function(){
+        $("folder").hide();});
       data = "<ul class='list-group'>"
       for (var i = 0; i < res.data.directories.length; ++i) {  
         data = data + '<a href="#" class="list-group-item">' + '<i class="glyphicon glyphicon-folder-open"></i>' +' &nbsp;&nbsp;&nbsp; ' + res.data.directories[i] + "</a>";
@@ -33,6 +34,7 @@ function listdir(current_directory,folder_name){
       }
       data = data + '</ul>';
       $('#directory-div-'+folder_name).html(data);
+
     },
     error: function(res){
       console.log(res);
@@ -57,14 +59,12 @@ function download(current_directory,filename){
   });
 }
 
-
-
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-function create_folder_request(x){
+function create_folder_request(x,y){
   var msg;
   var csrftoken = getCookie('csrftoken');
   var query = $('#query').valueOf();
@@ -78,13 +78,14 @@ function create_folder_request(x){
   $.ajax({  
     type: "POST",
     url: CREATE_FOLDER,
-    data: JSON.stringify({'folder_name':x}),
+    data: JSON.stringify({'folder_name':x,'folder_path':y}),
     dataType: "json",
     // beforeSend: function(){$(".loader").show()},
     success: function(data) {
       console.log(data)
       msg="Folder Created Successfully";
       alert(msg);
+      location.reload();
     },
     error: function(data){
       console.log(res);
@@ -93,9 +94,10 @@ function create_folder_request(x){
 }
 
 function create_folder() {
+  var folder_path = $("#directory").val()
   var folder=prompt("Folder Name","New Folder");
   if (name!=null){
-    create_folder_request(folder)
+    create_folder_request(folder,folder_path)
    }
 }
 

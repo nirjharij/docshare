@@ -1,9 +1,8 @@
 import os
 import re
-
-path = os.environ['HOME']
 from django.conf import settings
 
+path = settings.WORK_DIR
 
 def cd_base(func):
     def wrap(*args, **kwargs):
@@ -48,8 +47,12 @@ class FileManagement:
 
     @cd_base
     def ls(self,current_directory):
+        directory_content = {}
         self.cd(current_directory)
-        return os.listdir(current_directory)
+        content_list = os.listdir(current_directory)
+        directory_content['files'] = [ content for content in content_list if not self.is_directory(os.path.join(current_directory,content))]
+        directory_content['directory'] = [ content for content in content_list if self.is_directory(os.path.join(current_directory,content))]
+        return directory_content
 
     @cd_base
     def rename_directory(self,current_directory,old_directory,new_directory):
@@ -99,24 +102,12 @@ class FileManagement:
             os.rename(old_filename,new_filename)    
 
     # @cd_base
-    def is_directory(self,current_directory,name):
+    def is_directory(self,path):
+    	print ("is dir:"+path)
     	# self.cd(current_directory)
-    	print ('os.getcwd()', current_directory, name)
-    	if os.path.isdir(os.path.join(current_directory, name)):
+    	# print ('os.getcwd()', current_directory, name)
+    	if os.path.isdir(path):
     		return True
     	else:
     		return False
 
-# current_directory = path + "/" + "zenatix/" 
-fileObj = FileManagement(path)
-
-# with open('/Users/binay/Downloads/Task.txt', 'rb') as testfile:
-#     fileObj.upload_file(testfile)
-
-# fileObj.create_directory(current_directory,'test1')
-# fileObj.delete_directory(current_directory,'test1')
-# fileObj.rename_directory(current_directory,'test1','test123')
-# fileObj.ls(current_directory)
-# fileObj.delete_file(current_directory,'Task.txt')
-# fileObj.search(current_directory,'.txt')
-# fileObj.rename_file(current_directory,'nj.jpg','d.txt')
