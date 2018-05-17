@@ -83,5 +83,6 @@ td, th {
 }
 
 
-
 .show {display:block;}
+
+.brand:hover, .brand:focus{text-decoration: none;}

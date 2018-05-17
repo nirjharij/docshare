@@ -102,9 +102,10 @@ function create_folder() {
 }
 
 function upload_file(){
-  var x = document.createElement("INPUT");
-  x.setAttribute("type", "file");
-  document.body.appendChild(x);
+  // var x = document.createElement("INPUT");
+  // x.setAttribute("type", "file");
+  // document.body.appendChild(x);
+  
 }
 
 function listOptions() {

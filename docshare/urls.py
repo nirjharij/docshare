@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from docshareapp.views import index,create_folder,list_directory,download
+from docshareapp import views 
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^$', index, name='home'),
-    url(r'^create_Folder/', create_folder, name='createFolder'),
-    url(r'^listdir/',list_directory,name='listDir'),
-    url(r'^download/',download,name='downloadFile'),
+    url(r'^$', views.index, name='home'),
+    url(r'^create_Folder/', views.create_folder, name='createFolder'),
+    url(r'^listdir/', views.list_directory, name='listDir'),
+    url(r'^download/', views.download, name='downloadFile'),
+    url(r'^upload/', views.upload, name='uploadFile'),
+    url(r'^search/',views.search, name='searchFor'),
 ]

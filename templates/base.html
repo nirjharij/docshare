@@ -27,10 +27,13 @@
             <div class="row" style="min-height:400px">
                 <div class="row">
                     <div class="col-md-2" id="">
-                        <h2>Docshare</h2>
+                        <a href="{% url 'home' %}" class="brand"><h2>Docshare</h2></a>
                     </div>
                     <div class="col-md-8 search-bar-parent">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <form action="{% url 'searchFor' %}" >
+                            <input type="text" class="form-control" placeholder="Search" name="searchedfor">
+                            <input type="hidden" name="path" value="{{ current_directory }}">
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -39,9 +42,30 @@
                             <button onclick="listOptions()" class="dropbtn">NEW</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a href="#" id="create_folder" name="createFolder" onclick="create_folder()">Create Folder</a>
-                                <a href="#" id="" name="" onclick="upload_file()">File Upload</a>
+                                <a href="#" id="file_upload" name="uploadFile" onclick="upload_file()">File Upload</a>
+                                <a data-toggle="modal" data-target="#myModal">File Upload</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Upload File</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form method='post' action="{% url 'uploadFile' %}" enctype="multipart/form-data">{% csrf_token %}
+                                <input type="file" name="file_upload">
+                                <input type="hidden" name="path" value="{{ current_directory }}">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-md-10">
                         {% block home-marquee %}

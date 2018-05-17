@@ -6,16 +6,17 @@
 {% endblock %}
 
 {% block home-marquee %}
-<div class=col-md-2></div>
 <div class="col-md-10" id="title-div">
+    {% if bread %} 
     <ol class="breadcrumb">
         {% for b, b1 in bread %}
         <li class="active"><a href="{% url 'home' %}?path={{b1}}">{{b}}</a></li>
         {% endfor %}
     </ol>
+    {% endif %}
 </div>
 <div class="col-md-10" id="folder-div">
-	<div class="col-md-12 list-group folder" id="folder">
+	<span class="list-group folder" id="folder">
 		{% for directory in directories %}
 	  	<a href="{% url 'home' %}?path={{ current_directory }}/{{ directory }}" id={{directory}} class="dir-link list-group-item">
 	    	<i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;{{directory}}
@@ -26,7 +27,7 @@
 	    	<i class="glyphicon glyphicon-cloud-download"></i> &nbsp;&nbsp;&nbsp;{{file}}
 		</a>
 	  	{% endfor %}
-	</div>
+	</span>
 </div>
 <input type="hidden" value='{{current_directory}}' id="directory">
 <div class="col-md-12" id="res-div">
