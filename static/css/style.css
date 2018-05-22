@@ -23,9 +23,9 @@ td, th {
 	text-align: left;
 }
 
-.folder {
+/*.folder {
 	padding-left: 40px;
-}
+}*/
 
 /* Dropdown Button */
 .dropbtn {
@@ -86,3 +86,8 @@ td, th {
 .show {display:block;}
 
 .brand:hover, .brand:focus{text-decoration: none;}
+
+#suggesstion-box{
+    position: absolute;
+    z-index: 1000;
+}

@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^download/', views.download, name='downloadFile'),
     url(r'^upload/', views.upload, name='uploadFile'),
     url(r'^search/',views.search, name='searchFor'),
+    url(r'^autocomplete',views.autocomplete, name='autoComplete'),
 ]

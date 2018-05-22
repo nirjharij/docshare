@@ -106,7 +106,7 @@ def search(request):
     if request.method == 'GET':
         current_directory = request.GET.get("path")
         pattern = request.GET.get("searchedfor")
-        resp = fileObj.search(os.path.join(path,current_directory),pattern)
+        resp = fileObj.search(pattern)
     return render(
                 request, 'index.html',
                 {'files': resp['files'],
@@ -114,3 +114,10 @@ def search(request):
                  'current_directory':current_directory
                  }
             )
+
+def autocomplete(request):
+    if request.method == 'GET':
+        current_directory = request.GET.get("path")
+        pattern = request.GET.get("searchedfor")
+        resp = fileObj.search(pattern)
+    return JsonResponse({'files': resp['files'],'directories':resp['directories']}, content_type="application/json")

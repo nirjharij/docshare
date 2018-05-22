@@ -30,8 +30,9 @@
                         <a href="{% url 'home' %}" class="brand"><h2>Docshare</h2></a>
                     </div>
                     <div class="col-md-8 search-bar-parent">
-                        <form action="{% url 'searchFor' %}" >
-                            <input type="text" class="form-control" placeholder="Search" name="searchedfor">
+                        <form action="{% url 'searchFor' %}" autocomplete="off">
+                            <input type="text" id="search-box" class="form-control" placeholder="Search" name="searchedfor">
+                            <div id="suggesstion-box"></div>
                             <input type="hidden" name="path" value="{{ current_directory }}">
                         </form>
                     </div>
@@ -42,7 +43,6 @@
                             <button onclick="listOptions()" class="dropbtn">NEW</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a href="#" id="create_folder" name="createFolder" onclick="create_folder()">Create Folder</a>
-                                <a href="#" id="file_upload" name="uploadFile" onclick="upload_file()">File Upload</a>
                                 <a data-toggle="modal" data-target="#myModal">File Upload</a>
                             </div>
                         </div>
@@ -83,6 +83,7 @@
         var CREATE_FOLDER = '{% url "createFolder" %}';
         var LISTDIR = '{%url "listDir" %}';
         var DOWNLOAD = '{%url "downloadFile" %}';
+        var AUTOCOMPLETE = '{% url "autoComplete" %}';
     </script>
     {% endblock %}
 

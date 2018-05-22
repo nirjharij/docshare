@@ -22,7 +22,6 @@ function listdir(current_directory,folder_name){
     dataType: "json",
 
     success: function(res) {
-      console.log(res)
       $("#"+folder_name).click(function(){
         $("folder").hide();});
       data = "<ul class='list-group'>"
@@ -82,7 +81,6 @@ function create_folder_request(x,y){
     dataType: "json",
     // beforeSend: function(){$(".loader").show()},
     success: function(data) {
-      console.log(data)
       msg="Folder Created Successfully";
       alert(msg);
       location.reload();
@@ -101,11 +99,42 @@ function create_folder() {
    }
 }
 
-function upload_file(){
-  // var x = document.createElement("INPUT");
-  // x.setAttribute("type", "file");
-  // document.body.appendChild(x);
-  
+$(document).ready(function(){
+  $("#search-box").keyup(function(){
+    $.ajax({
+    type: "GET",
+    url: AUTOCOMPLETE,
+    data: {'searchedfor':$("#search-box").val(),'path':'zenatix'},
+    dataType: "json",
+    // beforeSend: function(){
+    //   $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
+    // },
+    success: function(res){
+      $("#suggesstion-box").show();
+      console.log(res)
+      data = "<ul class='list-group'>"
+      for (var i = 0; i < res.directories.directory.length; ++i) {  
+
+        data = data + "<a class='list-group-item' href='/?path=zenatix/"+ res.directories.path[i] + res.directories.directory[i] +"'> <i class='glyphicon glyphicon-folder-open'></i>" + " &nbsp;&nbsp;&nbsp; " + res.directories.directory[i] + "</a>";
+      }
+      for (var i = 0; i < res.files.file.length; ++i) {
+        data = data + "<a class='list-group-item' href='/?path=zenatix" + res.files.path[i] + "'>" + res.files.file[i] + "</a>";
+      }
+      data = data + '</ul>';
+      $("#suggesstion-box").html(data);
+      $("#search-box").css("background","#FFF");
+    }
+    });
+  });
+  $("#search-box").focusout(function(){
+    $("#suggesstion-box").hide('slow');
+  });
+
+});
+
+function findFiles() {
+  // $("#search-box").val();
+  $("#suggesstion-box").hide();
 }
 
 function listOptions() {
@@ -126,3 +155,12 @@ window.onclick = function(event) {
     }
   }
 }
+
+function delete_me(dir){
+  console.log(dir)
+}
+
+
+
+
+

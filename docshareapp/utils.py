@@ -1,6 +1,7 @@
 import os
 import re
 from django.conf import settings
+from os import walk
 
 path = settings.WORK_DIR
 
@@ -88,13 +89,22 @@ class FileManagement:
 			print ("File does not exist")
 
 	@cd_base
-	def search(self,current_directory,searched):
-		print(current_directory)
-		self.cd(current_directory)
-		data_dict = {'directory':[],'files':[]}
-		data = self.ls(current_directory)
-		data_dict['files'] = [ f for f in data['files'] if re.search(searched,f) ]
-		data_dict['directory'] = [ f for f in data['directory'] if re.search(searched,f) ]
+	def search(self,searched):
+		data_dict = {'directories':{'path':[],'directory':[]} ,'files':{'path':[],'file':[]}}
+		homedir = os.path.join(path,'zenatix')
+		files, dirs = 0, 0
+		for (dirpath, dirnames, filenames) in walk(homedir):
+			for f in filenames:
+				if files < 5 and re.search(searched,f,re.IGNORECASE):
+					files += 1
+					data_dict['files']['file'].append(f)
+					data_dict['files']['path'].append(dirpath.split('zenatix')[1])
+			for d in dirnames:
+				if dirs < 5 and re.search(searched,d,re.IGNORECASE):
+					dirs += 1
+					data_dict['directories']['directory'].append(d)
+					data_dict['directories']['path'].append(dirpath.split('zenatix')[1])
+
 		print(data_dict)
 		return data_dict
 
