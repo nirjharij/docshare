@@ -84,13 +84,15 @@
         var LISTDIR = '{%url "listDir" %}';
         var DOWNLOAD = '{%url "downloadFile" %}';
         var AUTOCOMPLETE = '{% url "autoComplete" %}';
+        var DELETE = '{% url "delete" %}';
     </script>
     {% endblock %}
-
     <script type="text/javascript" language="javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{% get_static_prefix %}jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{% get_static_prefix %}js/jquery.contextmenu.js"></script>
+    
     <script type="text/javascript" language="javascript" src="{% get_static_prefix %}js/bootstrap.min.js"></script>
     
-
     {% block js-required %}
     {% endblock %}
     

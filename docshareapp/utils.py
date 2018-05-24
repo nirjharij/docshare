@@ -1,9 +1,11 @@
 import os
 import re
+import requests
 from django.conf import settings
 from os import walk
 
 path = settings.WORK_DIR
+media_path = settings.MEDIA_ROOT
 
 def cd_base(func):
 	def wrap(*args, **kwargs):
@@ -37,8 +39,10 @@ class FileManagement:
 		if os.path.isdir(directory_name):
 			os.removedirs(directory_name)
 			print ("Successfully Deleted %s" % directory_name)
+			return True
 		else:
 			print ("No such directory present")
+			return False
 	
 	def cd(self,directory_path):
 		if os.path.isdir(directory_path):
@@ -85,8 +89,10 @@ class FileManagement:
 		if os.path.isfile(filename):
 			os.remove(filename)
 			print ("File %s removed Successfully" % filename)
+			return True
 		else:
 			print ("File does not exist")
+			return False
 
 	@cd_base
 	def search(self,searched):
@@ -108,10 +114,17 @@ class FileManagement:
 		print(data_dict)
 		return data_dict
 
-	def download_file(self,current_directory,filename):
-		download_file_path = current_directory+filename
-		if os.path.exists(download_file_path):
-			return download_file_path
+	def download_file(self,file_path,filename):
+		full_path = os.path.join(path,file_path)
+		rf = open(full_path,'rb')
+		destination_file = os.path.join(media_path+filename)
+		with open(destination_file, 'wb') as f:
+			for chunk in rf:
+				if chunk:
+					f.write(chunk)
+		# download_file_path = current_directory+filename
+		# if os.path.exists(download_file_path):
+		return destination_file
 
 	@cd_base
 	def rename_file(self,current_directory,old_filename,new_filename):

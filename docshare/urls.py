@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^upload/', views.upload, name='uploadFile'),
     url(r'^search/',views.search, name='searchFor'),
     url(r'^autocomplete',views.autocomplete, name='autoComplete'),
+    url(r'^delete/',views.delete, name='delete'),
 ]

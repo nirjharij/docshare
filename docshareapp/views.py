@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import requests
 import mimetypes
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -86,7 +87,7 @@ def download(request):
     file_path = request.GET.get('path', None)
     file_path = os.path.join(settings.WORK_DIR, file_path)
     filename = file_path.split('/')[-1]
-    ext = {'txt': 'text/plain', 'pdf': 'application/pdf', 'py': 'application/py','JPG':'image/png','PNG':'image/png'}
+    ext = {'txt': 'text/plain', 'pdf': 'application/pdf', 'py': 'application/py','JPG':'image/png','PNG':'image/png','mkv':'video/mkv'}
     wrapper = FileWrapper(open(file_path,'rb'))
     content_type = ext.get(filename.split('.')[-1]) + "; charset=utf-8"
     response = HttpResponse(wrapper,content_type=content_type)
@@ -121,3 +122,16 @@ def autocomplete(request):
         pattern = request.GET.get("searchedfor")
         resp = fileObj.search(pattern)
     return JsonResponse({'files': resp['files'],'directories':resp['directories']}, content_type="application/json")
+
+def delete(request):
+    if request.method == 'POST':
+        current_directory = request.POST.get("path")
+        file = request.POST.get('file',None)
+        directory = request.POST.get('dir',None)
+        print (file,directory)
+        if file is not None:
+            resp = fileObj.delete_file(current_directory,file)
+        elif directory is not None:
+            resp = fileObj.delete_directory(current_directory,directory)
+
+        return JsonResponse({'resp':resp}, content_type="application/json")

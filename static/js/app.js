@@ -130,6 +130,64 @@ $(document).ready(function(){
     $("#suggesstion-box").hide('slow');
   });
 
+  var csrftoken = getCookie('csrftoken');
+  var query = $('#query').valueOf();
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+  });
+
+  $(".deldir").on('click',function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');
+    console.log(id);
+    $.ajax({
+    type: "POST",
+    url: DELETE,
+    data: JSON.stringify({'path':$("#"+id).val(),'dir':id }),
+    dataType: "json",
+    success: function(data) {
+      msg="Directory Deleted Successfully";
+      alert(msg);
+      location.reload();
+    },
+    error: function(data){
+      console.log(res);
+    }
+  });
+  });
+
+  $(".delfile").on('click',function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');
+    console.log(id);
+    $.ajax({
+    type: "POST",
+    url: DELETE,
+    data: JSON.stringify({'path':$("#"+id).val(),'file':id }),
+    dataType: "json",
+    success: function(data) {
+      msg="File Deleted Successfully";
+      alert(msg);
+      location.reload();
+    },
+    error: function(data){
+      console.log(res);
+    }
+  });
+  });
+  // $("#folder").oncontextmenu = function() {return false;};
+
+  // $("#folder").mousedown(function(e){ 
+  //   if( e.button == 2 ) { 
+  //     alert('Right mouse button!'); 
+  //     return false; 
+  //   } 
+  //   return true; 
+  // }); 
 });
 
 function findFiles() {
@@ -156,9 +214,7 @@ window.onclick = function(event) {
   }
 }
 
-function delete_me(dir){
-  console.log(dir)
-}
+
 
 
 
