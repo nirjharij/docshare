@@ -180,15 +180,7 @@ $(document).ready(function(){
     }
   });
   });
-  // $("#folder").oncontextmenu = function() {return false;};
-
-  // $("#folder").mousedown(function(e){ 
-  //   if( e.button == 2 ) { 
-  //     alert('Right mouse button!'); 
-  //     return false; 
-  //   } 
-  //   return true; 
-  // }); 
+  
 });
 
 function findFiles() {

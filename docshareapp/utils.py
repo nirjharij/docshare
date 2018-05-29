@@ -130,7 +130,6 @@ class FileManagement:
                     data_dict['directories']['directory'].append(d)
                     data_dict['directories']['path'].append(dirpath.split('zenatix')[1])
 
-        print(data_dict)
         return data_dict
 
     def download_file(self, file_path, filename):
