@@ -4,14 +4,14 @@ It also allows user to create folder and upload files and do various other opera
 
 ## Getting Started
 Create a file local_settings.py in the same folder as settings.py file having your database details as
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'docshare',
-        'USERNAME': 'username',
-        "PASSWORD": 'password'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'docshare',
+            'USERNAME': 'username',
+            "PASSWORD": 'password'
+        }
     }
-}
 
 ### Prerequisites
 
