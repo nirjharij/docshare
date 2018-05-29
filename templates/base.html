@@ -56,6 +56,7 @@
                           </div>
                           <div class="modal-body">
                             <form method='post' action="{% url 'uploadFile' %}" enctype="multipart/form-data">{% csrf_token %}
+                                <input type="hidden" name="current_link" id='upload_url' value=''>
                                 <input type="file" name="file_upload">
                                 <input type="hidden" name="path" value="{{ current_directory }}">
                           </div>

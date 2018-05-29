@@ -1,4 +1,5 @@
 import os
+import shutil
 import re
 from django.conf import settings
 from os import walk
@@ -6,13 +7,24 @@ from os import walk
 path = settings.WORK_DIR
 media_path = settings.MEDIA_ROOT
 
-
 def cd_base(func):
     def wrap(*args, **kwargs):
         x = func(*args, **kwargs)
         os.chdir(settings.BASE_DIR)
         return x
     return wrap
+
+
+class Files:
+	def __init__(self,name,path):
+		self.filename = name
+		self.filepath = path
+
+
+class Directory:
+	def __init__(self,name,path):
+		self.dirname = name
+		self.dirpath = path
 
 
 class FileManagement:
@@ -36,9 +48,9 @@ class FileManagement:
 
     @cd_base
     def delete_directory(self, current_directory, directory_name):
-        self.cd(current_directory)
+        self.cd(os.path.join(self.path,current_directory))
         if os.path.isdir(directory_name):
-            os.removedirs(directory_name)
+            shutil.rmtree(directory_name)
             print ("Successfully Deleted %s" % directory_name)
             return True
         else:
@@ -90,7 +102,7 @@ class FileManagement:
 
     @cd_base
     def delete_file(self, current_directory, filename):
-        self.cd(current_directory)
+        self.cd(os.path.join(self.path,current_directory))
         if os.path.isfile(filename):
             os.remove(filename)
             print ("File %s removed Successfully" % filename)
@@ -139,10 +151,7 @@ class FileManagement:
         if os.path.isfile(old_filename):
             os.rename(old_filename, new_filename)
 
-    # @cd_base
     def is_directory(self, path):
-        # self.cd(current_directory)
-        # print ('os.getcwd()', current_directory, name)
         if os.path.isdir(path):
             return True
         else:

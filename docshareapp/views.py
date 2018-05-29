@@ -1,21 +1,19 @@
 # -*- coding: utf-8 -*-
-import os
-from django.shortcuts import render
-from django.http import JsonResponse
 import json
+import os
+
 from .utils import FileManagement
 
 from django.conf import settings
-from wsgiref.util import FileWrapper
+from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
-# from django.conf.settings import WORK_DIR as path
+from wsgiref.util import FileWrapper
+
 path = settings.WORK_DIR
 
-# Create your views here.
-
 fileObj = FileManagement(path)
-
 
 def index(request):
     if request.method == 'GET':
@@ -44,7 +42,7 @@ def index(request):
             {'files': directory_content['files'],
              'directories': directory_content['directory'],
              'current_directory': folder_path,
-             'bread': zip(bread, path_bread)
+             'bread': bread
              }
         )
 
@@ -101,7 +99,8 @@ def upload(request):
         file = request.FILES['file_upload']
         current_directory = request.POST.get("path")
         fileObj.upload_file(file, current_directory)
-    return HttpResponseRedirect(reverse("home"))
+        current_url = request.POST.get('current_link')
+    return HttpResponseRedirect(current_url)
 
 
 def search(request):
@@ -130,9 +129,8 @@ def autocomplete(request):
 def delete(request):
     if request.method == 'POST':
         current_directory = request.POST.get("path")
-        file = request.POST.get('file', None)
-        directory = request.POST.get('dir', None)
-        print (file, directory)
+        file = request.POST.get('file',None)
+        directory = request.POST.get('dir',None)
         if file is not None:
             resp = fileObj.delete_file(current_directory, file)
         elif directory is not None:

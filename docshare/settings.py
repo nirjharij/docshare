@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'docshareapp',
+    'usermanager',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +76,7 @@ WSGI_APPLICATION = 'docshare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = {}
 
 
 # Password validation
@@ -124,3 +121,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 WORK_DIR = os.path.join(BASE_DIR, 'fs')
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+try:
+    from docshare.local_settings import *
+except:
+    pass

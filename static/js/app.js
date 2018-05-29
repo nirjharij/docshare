@@ -100,6 +100,7 @@ function create_folder() {
 }
 
 $(document).ready(function(){
+  $('#upload_url').val(window.location.href)
   $("#search-box").keyup(function(){
     $.ajax({
     type: "GET",
@@ -143,11 +144,11 @@ $(document).ready(function(){
   $(".deldir").on('click',function(e){
     e.preventDefault();
     var id = $(this).attr('id');
-    console.log(id);
+    var path = $("#path-"+id).val();
     $.ajax({
     type: "POST",
     url: DELETE,
-    data: JSON.stringify({'path':$("#"+id).val(),'dir':id }),
+    data: {'path':path,'dir':id},
     dataType: "json",
     success: function(data) {
       msg="Directory Deleted Successfully";
@@ -155,7 +156,7 @@ $(document).ready(function(){
       location.reload();
     },
     error: function(data){
-      console.log(res);
+      console.log(data);
     }
   });
   });
@@ -163,11 +164,11 @@ $(document).ready(function(){
   $(".delfile").on('click',function(e){
     e.preventDefault();
     var id = $(this).attr('id');
-    console.log(id);
+    var path = $("#directory").val();
     $.ajax({
     type: "POST",
     url: DELETE,
-    data: JSON.stringify({'path':$("#"+id).val(),'file':id }),
+    data: {'path':path,'file':id },
     dataType: "json",
     success: function(data) {
       msg="File Deleted Successfully";
@@ -175,7 +176,7 @@ $(document).ready(function(){
       location.reload();
     },
     error: function(data){
-      console.log(res);
+      console.log(data);
     }
   });
   });
