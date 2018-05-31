@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from docshareapp import views 
+from django.conf import settings
 
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -28,3 +29,9 @@ urlpatterns = [
     url(r'^autocomplete',views.autocomplete, name='autoComplete'),
     url(r'^delete/',views.delete, name='delete'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
