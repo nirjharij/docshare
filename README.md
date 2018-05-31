@@ -1,23 +1,28 @@
 # Docshare
-This project creates an interface for sharing files.
-It also allows user to create folder and upload files and do various other operations like list files, download and delete files. 
+
+This project creates an interface for managing your files.
+It also allows user to:
+- Create Folder
+
+- Upload Files
+
+- Download Files
+
+- Delete Files. 
 
 ## Getting Started
-Create a file local_settings.py in the same folder as settings.py file having your database details as
 
-```
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'docshare',
-            'USERNAME': 'username',
-            "PASSWORD": 'password'
-        }
-    }
-```
+- Functionality as a django application
+
+- Loosely coupled app, that can be taken out easily and use anywhere else.
+Search feature to search for files and folders within the directory structure
 
 ### Prerequisites
 
-Python 3.6
-Django 2.0
+- Python 3.6
 
+- Django 2.0
+
+# App Link
+
+- https://docshare-1109.herokuapp.com
