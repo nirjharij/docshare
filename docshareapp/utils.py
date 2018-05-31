@@ -30,11 +30,11 @@ class Directory:
 class FileManagement:
     def __init__(self, path):
         self.path = path
-        self.project_path = self.path + "/zenatix"
+        self.project_path = self.path + "/My Docs"
 
         if not os.path.isdir(self.project_path):
             os.chdir(self.path)
-            os.mkdir('zenatix')
+            os.mkdir('My Docs')
 
     # Directory Operations
     @cd_base
@@ -116,19 +116,19 @@ class FileManagement:
         data_dict = {
             'directories': {'path': [], 'directory': []},
             'files': {'path': [], 'file': []}}
-        homedir = os.path.join(path, 'zenatix')
+        homedir = os.path.join(path, 'My Docs')
         files, dirs = 0, 0
         for (dirpath, dirnames, filenames) in walk(homedir):
             for f in filenames:
                 if files < 5 and re.search(searched, f, re.IGNORECASE):
                     files += 1
                     data_dict['files']['file'].append(f)
-                    data_dict['files']['path'].append(dirpath.split('zenatix')[1])
+                    data_dict['files']['path'].append(dirpath.split('My Docs')[1])
             for d in dirnames:
                 if dirs < 5 and re.search(searched, d, re.IGNORECASE):
                     dirs += 1
                     data_dict['directories']['directory'].append(d)
-                    data_dict['directories']['path'].append(dirpath.split('zenatix')[1])
+                    data_dict['directories']['path'].append(dirpath.split('My Docs')[1])
 
         return data_dict
 

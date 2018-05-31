@@ -20,17 +20,17 @@ def index(request):
         folder_path = request.GET.get('path', None)
 
         if not folder_path:
-            directory_content = fileObj.ls(os.path.join(path, 'zenatix'))
-            bread = [('zenatix', 'zenatix')]
-            folder_path = 'zenatix'
+            directory_content = fileObj.ls(os.path.join(path, 'My Docs'))
+            bread = [('My Docs', 'My Docs')]
+            folder_path = 'My Docs'
         else:
             bread = []
             path_bread = []
             bread.extend(folder_path.split('/'))
             bread_path = ''
             for b in bread:
-                if b == 'zenatix':
-                    bread_path = 'zenatix'
+                if b == 'My Docs':
+                    bread_path = 'My Docs'
                 else:
                     bread_path = bread_path + "/" + b
                 path_bread.append(bread_path)
@@ -83,10 +83,10 @@ def download(request):
     filename = file_path.split('/')[-1]
     ext = {
         'txt': 'text/plain', 'pdf': 'application/pdf',
-        'py': 'application/py', 'JPG': 'image/png',
+        'py': 'application/py', 'jpg': 'image/png',
         'PNG': 'image/png', 'mkv': 'video/mkv'}
     wrapper = FileWrapper(open(file_path, 'rb'))
-    content_type = ext.get(filename.split('.')[-1]) + "; charset=utf-8"
+    content_type = ext.get(filename.split('.')[-1].lower()) + "; charset=utf-8"
     response = HttpResponse(wrapper, content_type=content_type)
     attachment_name = 'attachment; filename={}'.format(filename)
     response['Content-Disposition'] = attachment_name

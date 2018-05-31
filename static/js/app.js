@@ -105,7 +105,7 @@ $(document).ready(function(){
     $.ajax({
     type: "GET",
     url: AUTOCOMPLETE,
-    data: {'searchedfor':$("#search-box").val(),'path':'zenatix'},
+    data: {'searchedfor':$("#search-box").val(),'path':'My Docs'},
     dataType: "json",
     // beforeSend: function(){
     //   $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
@@ -116,10 +116,10 @@ $(document).ready(function(){
       data = "<ul class='list-group'>"
       for (var i = 0; i < res.directories.directory.length; ++i) {  
 
-        data = data + "<a class='list-group-item' href='/?path=zenatix/"+ res.directories.path[i] + res.directories.directory[i] +"'> <i class='glyphicon glyphicon-folder-open'></i>" + " &nbsp;&nbsp;&nbsp; " + res.directories.directory[i] + "</a>";
+        data = data + "<a class='list-group-item' href='/?path=My Docs/"+ res.directories.path[i] + res.directories.directory[i] +"'> <i class='glyphicon glyphicon-folder-open'></i>" + " &nbsp;&nbsp;&nbsp; " + res.directories.directory[i] + "</a>";
       }
       for (var i = 0; i < res.files.file.length; ++i) {
-        data = data + "<a class='list-group-item' href='/?path=zenatix" + res.files.path[i] + "'>" + res.files.file[i] + "</a>";
+        data = data + "<a class='list-group-item' href='/?path=My Docs" + res.files.path[i] + "'>" + res.files.file[i] + "</a>";
       }
       data = data + '</ul>';
       $("#suggesstion-box").html(data);
