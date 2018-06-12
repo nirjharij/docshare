@@ -2,4 +2,4 @@
 .DS_Store
 local_settings.py
 .idea
-fs/*
+fs/
