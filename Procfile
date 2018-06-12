@@ -1,1 +1,1 @@
-web: gunicorn docshare.wsgi
+web: gunicorn --timeout 120 docshare.wsgi
