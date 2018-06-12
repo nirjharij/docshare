@@ -21,14 +21,14 @@
 		{% for directory in directories %}
 	  	<a href="{% url 'home' %}?path={{ current_directory }}/{{ directory }}" id={{directory}} class="dir-link list-group-item">
 	    	<i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;{{directory}}
-	    	<input type="hidden" value='{{current_directory}}' id=path-{{directory}}>
+	    	<input type="hidden" value='{{current_directory}}' id='path-{{directory}}'>
 	    	<i id="{{directory}}" class="deldir glyphicon glyphicon-trash pull-right"></i>
 	    </a>
 	  	{% endfor %}
 	  	{% for file in files %}
 	  	<a href="{% url 'downloadFile' %}?path={{ current_directory }}/{{ file }}" id={{file}} class="dir-link list-group-item">
 	    	<i class="glyphicon glyphicon-cloud-download"></i> &nbsp;&nbsp;&nbsp;{{file}} 
-	    	<input type="hidden" value='{{current_directory}}' id=path-{{file}}>
+	    	<input type="hidden" value='{{current_directory}}' id='path-{{file}}'>
 	    	<i id="{{file}}" class="delfile glyphicon glyphicon-trash pull-right"></i>
 		</a>
 	  	{% endfor %}

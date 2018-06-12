@@ -144,7 +144,7 @@ $(document).ready(function(){
   $(".deldir").on('click',function(e){
     e.preventDefault();
     var id = $(this).attr('id');
-    var path = $("#path-"+id).val();
+    var path = $("#directory").val();
     $.ajax({
     type: "POST",
     url: DELETE,
